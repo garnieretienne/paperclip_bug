@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+function main() {
+
+  export DEBIAN_FRONTEND=noninteractive
+  sudo apt-get --quiet update
+  sudo apt-get install --quiet --assume-yes build-essential ruby2.0 \
+      ruby2.0-dev zlib1g-dev libsqlite3-dev imagemagick nodejs
+  sudo update-alternatives --install /usr/bin/ruby ruby /usr/bin/ruby2.0 1
+  sudo update-alternatives --install /usr/bin/gem gem /usr/bin/gem2.0 1
+  sudo gem install --quiet --no-ri --no-rdoc bundler
+  cd /vagrant && bundle install
+}
+
+main @
